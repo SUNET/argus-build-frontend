@@ -1,0 +1,38 @@
+name: Build and Save Docker Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout code from repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Set up Docker Buildx (for building multi-platform images)
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    # Build Docker image
+    - name: Build Docker image
+      run: |
+        docker build -t argus-frontend:${{ github.sha }} -f docker/Dockerfile .
+
+    # Save Docker image as an artifact
+    - name: Save Docker image as artifact
+      run: |
+        docker save argus-frontend:${{ github.sha }} -o argus-frontend-${{ github.sha }}.tar
+      # Ensure the artifact is available for download
+      continue-on-error: true
+
+    # Upload the saved Docker image tarball as an artifact
+    - name: Upload Docker image artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: argus-frontend-test
+        path: argus-frontend-${{ github.sha }}.tar
+        retention-days: 5

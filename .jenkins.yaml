@@ -1,0 +1,15 @@
+---
+git:
+  branch: master
+triggers:
+  cron: "@daily"
+clean_workspace: true
+pre_build_script:
+- cp docker/Dockerfile .
+script:
+- echo "Build SUNET Custom ARGUS-Fronted Image"
+builders:
+- docker
+docker_name: sunet/argus-frontend
+docker_tags:
+- "v1.14.3_sunetbuild"
