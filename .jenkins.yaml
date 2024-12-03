@@ -10,6 +10,11 @@ script:
 - echo "Build SUNET Custom ARGUS-Fronted Image"
 builders:
 - docker
-docker_name: sunet/argus-frontend-test
+docker_name: sunet/argus-frontend
 docker_tags:
 - "v1.14.1_sunetbuild"
+docker_no_cache: true
+docker_force_tag: true
+docker_build_args: |
+  BRANCH_NAME=v1.14.1
+  REPO_URL=https://github.com/Uninett/Argus-frontend.git
