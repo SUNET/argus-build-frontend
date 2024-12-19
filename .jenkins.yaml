@@ -12,7 +12,7 @@ builders:
 - docker
 docker_name: sunet/argus-frontend
 docker_tags:
-- '\${GIT_REVISION,length=8}-${BUILD_ID}-v1.14.1_sunetbuild'
+- '${GIT_COMMIT}-v1.14.1_sunetbuild'
 docker_no_cache: true
 docker_force_tag: true
 docker_build_args: |
