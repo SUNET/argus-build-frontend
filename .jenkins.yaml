@@ -2,7 +2,7 @@
 git:
   branch: main
 triggers:
-  # cron: "@daily"
+  #cron: "@daily"
   github_push: true
 clean_workspace: true
 pre_build_script:
